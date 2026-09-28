@@ -2,23 +2,40 @@ import pytest
 from minecraft_image.score import Scorer
 
 class TestScorerInstance:
-    def test_score_mismatched_dimensions(self):
+    def test_score_mismatched_dimensions1(self):
         scorer = Scorer()
-        target1 = [[1,0],[0,1]]
-        target2 = [[]]
-        rendered1 = [[1,0],[1,0,0]]
-        rendered2 = [[1,0]]
-        rendered3 = [[]]
+        target = [[1,0],[0,1]]
+        rendered = [[1,0],[1,0,0]]
         with pytest.raises(ValueError):
-            scorer.silhouette_error(target1, rendered1)
+            scorer.silhouette_error(target, rendered)
+
+    def test_score_mismatched_dimensions2(self):
+        scorer = Scorer()
+        target = [[1,0],[0,1]]
+        rendered = [[1,0]]
         with pytest.raises(ValueError):
-            scorer.silhouette_error(target1, rendered2)
+            scorer.silhouette_error(target, rendered)
+
+    def test_score_mismatched_dimensions3(self):
+        scorer = Scorer()
+        target = [[1,0],[0,1]]
+        rendered = [[]]
         with pytest.raises(ValueError):
-            scorer.silhouette_error(target1, rendered3)
+            scorer.silhouette_error(target, rendered)
+
+    def test_score_mismatched_dimensions4(self):
+        scorer = Scorer()
+        target = [[]]
+        rendered = [[1,0],[1,0,0]]
         with pytest.raises(ValueError):
-            scorer.silhouette_error(target2, rendered1)
+            scorer.silhouette_error(target, rendered)
+
+    def test_score_mismatched_dimensions5(self):
+        scorer = Scorer()
+        target = [[]]
+        rendered = [[1,0]]
         with pytest.raises(ValueError):
-            scorer.silhouette_error(target2, rendered2)
+            scorer.silhouette_error(target, rendered)
 
     def test_no_error(self):
         scorer = Scorer()
